@@ -1,11 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCOUTSIDE</title>
 </head>
-<body>
-  <h1>최서준 푸씨</h1>
+<body style="background-color: white;">
+  
+    <header>
+        <!-- 로고 및 제목 -->
+        <img src="dc.png" alt="DC Logo" width="300" height="150">
+        <h1>DCOUTSIDE</h1>
+        <!-- 로그인 폼 -->
+        <section>
+            <form action="login.js" method="post">
+                <input type="text" name="username" placeholder="아이디를 입력하세요" required>
+                <input type="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                <button type="submit">로그인</button>
+            </form>
+        </section>
+    </header>
+
+    <main>
+        <!-- 게시글 목록 -->
+        <section>
+            <h2>게시글 목록</h2>
+            <table border="1" width="100%" cellspacing="0" cellpadding="5">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="post.html?id=1">첫 번째 게시글</a></td>
+                        <td>관리자</td>
+                        <td>2024-11-18</td>
+                        <td>
+                            <form action="delete.js" method="post">
+                                <input type="hidden" name="post_id" value="1">
+                                <button type="submit">삭제</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="post.html?id=2">두 번째 게시글</a></td>
+                        <td>손님</td>
+                        <td>2024-11-17</td>
+                        <td>
+                            <form action="delete.js" method="post">
+                                <input type="hidden" name="post_id" value="2">
+                                <button type="submit">삭제</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 글 작성 폼 -->
+        <section>
+            <h2>글 작성하기</h2>
+            <form action="submit.js" method="post">
+                <p>
+                    <label for="title">제목:</label><br>
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+                </p>
+                <p>
+                    <label for="author">작성자:</label><br>
+                    <input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required>
+                </p>
+                <p>
+                    <label for="content">내용:</label><br>
+                    <textarea id="content" name="content" rows="5" cols="40" placeholder="내용을 입력하세요" required></textarea>
+                </p>
+                <p>
+                    <button type="submit">등록</button>
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 copybara DCOUTSIDE</p>
+    </footer>
 </body>
 </html>
