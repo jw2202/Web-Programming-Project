@@ -29,7 +29,6 @@ header img {
     margin: 0 auto;
 }
 
-/* Button Styling */
 a, button {
     display: inline-block;
     padding: 10px 20px;
@@ -60,15 +59,13 @@ button:hover {
     background-color: #555;
 }
 
-/* Header Actions */
 .header-actions {
     display: flex;
-    justify-content: center; /* Center align buttons */
-    gap: 15px; /* Space between buttons */
+    justify-content: center;
+    gap: 15px;
     margin-top: 10px;
 }
 
-/* Title Links in Post List */
 table a {
     background-color: transparent;
     color: #007BFF;
@@ -113,17 +110,15 @@ form {
     gap: 10px;
 }
 
-/* Form Input and Textarea Styles */
 form input[type="text"], form textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-family: Arial, sans-serif; /* 동일한 글꼴 적용 */
-    font-size: 1rem; /* 동일한 글씨 크기 적용 */
-    color: #333; /* 동일한 글씨 색상 적용 */
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
 }
-
 
 footer p {
     margin: 0;
