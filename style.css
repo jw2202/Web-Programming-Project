@@ -1,3 +1,4 @@
+/* 전체 기본 설정 */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -6,6 +7,7 @@ body {
     padding: 0;
 }
 
+/* 헤더 및 푸터 */
 header, footer {
     text-align: center;
     padding: 20px;
@@ -29,46 +31,158 @@ header img {
     margin: 0 auto;
 }
 
-/* Button Styling */
-a, button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+footer p {
+    margin: 0;
+    font-size: 0.9em;
 }
 
-a {
+/* 헤더 액션(로그인, 홈, 회원가입 버튼 등) */
+header .header-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+header .header-actions a {
+    text-decoration: none;
+    padding: 10px 20px;
     background-color: #333;
     color: yellow;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-a:hover {
+header .header-actions a:hover {
     background-color: #555;
     color: #fff;
 }
 
-button {
+/* 로그인 폼 스타일 */
+.login-form {
+    width: 40%; /* 폼의 너비를 40%로 설정 */
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
     background-color: #333;
     color: #fff;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.login-form button:hover {
+    background-color: #555;
+}
+
+/* 회원가입 폼 */
+.register-form {
+    width: 40%; /* 폼의 너비를 40%로 설정 */
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.register-form label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.register-form button:hover {
+    background-color: #555;
+}
+
+/* 푸터 */
+footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+/* 인풋 필드 및 텍스트 에어리어 기본 스타일 */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #333;
+    width: 100%; /* 모든 입력 필드의 너비를 100%로 맞춰서 동일한 길이 유지 */
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #555;
 }
 
-/* Header Actions */
-.header-actions {
-    display: flex;
-    justify-content: center; /* Center align buttons */
-    gap: 15px; /* Space between buttons */
-    margin-top: 10px;
-}
-
-/* Title Links in Post List */
+/* 제목 링크 */
 table a {
     background-color: transparent;
     color: #007BFF;
@@ -81,6 +195,7 @@ table a:hover {
     text-decoration: none;
 }
 
+/* 게시판 목록 및 게시글 작성 페이지 */
 main section {
     width: 80%;
     margin: 0 auto 20px;
@@ -107,25 +222,30 @@ th {
     background-color: #f8f8f8;
 }
 
+/* 글 작성 폼 */
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Form Input and Textarea Styles */
 form input[type="text"], form textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-family: Arial, sans-serif; /* 동일한 글꼴 적용 */
-    font-size: 1rem; /* 동일한 글씨 크기 적용 */
-    color: #333; /* 동일한 글씨 색상 적용 */
 }
 
+form button {
+    width: 100px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-footer p {
-    margin: 0;
-    font-size: 0.9em;
+form button:hover {
+    background-color: #555;
 }
