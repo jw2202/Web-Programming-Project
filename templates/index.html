@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DCOUTSIDE</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body style="background-color: white;">
-  
     <header>
         <!-- 로고 및 제목 -->
-        <img src="dc.png" alt="DC Logo" width="300" height="150">
+        <img src="../dc.png" alt="DC Logo" width="300" height="150">
         <h1>DCOUTSIDE</h1>
-        <!-- 로그인 페이지 링크 -->
-        <section>
-            <a href="login.html">로그인</a>
+        <!-- 로그인 및 글 작성 페이지 링크 -->
+        <section class="header-actions">
+            <a href="login.html" class="back-button">로그인</a>
+            <a href="write.html" class="back-button">글 작성</a>
         </section>
     </header>
 
@@ -59,28 +59,6 @@
                     </tr>
                 </tbody>
             </table>
-        </section>
-
-        <!-- 글 작성 폼 -->
-        <section>
-            <h2>글 작성하기</h2>
-            <form action="submit.js" method="post">
-                <p>
-                    <label for="title">제목:</label><br>
-                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
-                </p>
-                <p>
-                    <label for="author">작성자:</label><br>
-                    <input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required>
-                </p>
-                <p>
-                    <label for="content">내용:</label><br>
-                    <textarea id="content" name="content" rows="5" cols="40" placeholder="내용을 입력하세요" required></textarea>
-                </p>
-                <p>
-                    <button type="submit">등록</button>
-                </p>
-            </form>
         </section>
     </main>
 

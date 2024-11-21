@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -25,41 +24,63 @@ h2 {
     padding-bottom: 5px;
 }
 
-/* Logo and Header */
 header img {
     display: block;
     margin: 0 auto;
 }
 
-/* Login Form */
-header form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-header input[type="text"],
-header input[type="password"] {
-    padding: 8px;
+/* Button Styling */
+a, button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-header button {
+a {
+    background-color: #333;
+    color: yellow;
+}
+
+a:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+button {
     background-color: #333;
     color: #fff;
-    padding: 8px 16px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-header button:hover {
+button:hover {
     background-color: #555;
 }
 
-/* Post List */
+/* Header Actions */
+.header-actions {
+    display: flex;
+    justify-content: center; /* Center align buttons */
+    gap: 15px; /* Space between buttons */
+    margin-top: 10px;
+}
+
+/* Title Links in Post List */
+table a {
+    background-color: transparent;
+    color: #007BFF;
+    padding: 0;
+    text-decoration: underline;
+}
+
+table a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
 main section {
     width: 80%;
     margin: 0 auto 20px;
@@ -73,60 +94,37 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
-}
-
-table, th, td {
     border: 1px solid #ddd;
 }
 
 th, td {
     padding: 10px;
     text-align: center;
+    border: 1px solid #ddd;
 }
 
 th {
     background-color: #f8f8f8;
 }
 
-/* Post Form */
 form {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
-form p {
-    margin: 10px 0;
-}
-
-form label {
-    font-weight: bold;
-}
-
-form input[type="text"],
-form textarea {
+/* Form Input and Textarea Styles */
+form input[type="text"], form textarea {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    font-family: Arial, sans-serif; /* 동일한 글꼴 적용 */
+    font-size: 1rem; /* 동일한 글씨 크기 적용 */
+    color: #333; /* 동일한 글씨 색상 적용 */
 }
 
-form button {
-    width: 100px;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-}
 
-form button:hover {
-    background-color: #555;
-}
-
-/* Footer */
 footer p {
     margin: 0;
     font-size: 0.9em;
