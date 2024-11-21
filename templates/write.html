@@ -3,39 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글 작성하기 - DCOUTSIDE</title>
+    <title>글 작성</title>
     <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body style="background-color: white;">
     <header>
-        <!-- 로고 및 제목 -->
         <img src="../dc.png" alt="DC Logo" width="300" height="150">
-        <h1>글 작성하기</h1>
-        <!-- 메인 페이지로 돌아가기 -->
-        <nav>
-            <a href="index.html" class="back-button">← 메인 페이지로 돌아가기</a>
-        </nav>
+        <h1>DCOUTSIDE</h1>
+        <section class="header-actions">
+            <a href="login.html" class="back-button">로그인</a>
+            <a href="index.html" class="back-button">홈</a>
+        </section>
     </header>
 
     <main>
-        <!-- 글 작성 폼 -->
         <section>
-            <form action="submit.js" method="post">
-                <p>
-                    <label for="title">제목:</label><br>
-                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
-                </p>
-                <p>
-                    <label for="author">작성자:</label><br>
-                    <input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required>
-                </p>
-                <p>
-                    <label for="content">내용:</label><br>
-                    <textarea id="content" name="content" rows="5" cols="40" placeholder="내용을 입력하세요" required></textarea>
-                </p>
-                <p>
-                    <button type="submit">등록</button>
-                </p>
+            <h2>글 작성</h2>
+            <form action="submit_post.html" method="post">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="author">작성자</label>
+                <input type="text" id="author" name="author" required>
+
+                <label for="content">내용</label>
+                <textarea id="content" name="content" rows="5" required></textarea>
+
+                <button type="submit">제출</button>
             </form>
         </section>
     </main>
