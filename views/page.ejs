@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 상세보기 - DCOUTSIDE</title>
+    <title><%= title %> - DCOUTSIDE</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body style="background-color: white;">
     <header>
+        <strong class="header-name">logined as: <%= name %></strong>
         <img src="../dc.png" alt="DC Logo" width="300" height="150">
-        <h1>게시글 상세보기</h1>
-        <nav>
-            <a href="index.html">← 메인 페이지로 돌아가기</a>
-        </nav>
+        <h1>DCOUTSIDE</h1>
+        <section class="header-actions">
+            <a href="/" class="back-button">홈</a>
+        </section>
     </header>
 
     <main>

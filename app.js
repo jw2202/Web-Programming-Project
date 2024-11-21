@@ -22,6 +22,8 @@ db.connect((err) => {
   if (err) throw err; 
 });
 
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname))
 app.use(session({
@@ -34,9 +36,11 @@ app.use(session({
 app.get('/', (req, res) => {
   console.log(req.session);
   if (req.session.islogined) {
-    res.sendFile(__dirname + '/templates/logined.html'); 
+    // res.sendFile(__dirname + '/templates/logined.html'); 
+    res.render('logined', { name : req.session.name });
   } else {
-    res.sendFile(__dirname + '/templates/index.html');
+    // res.sendFile(__dirname + '/templates/index.html');
+    res.render('index');
   }
 })
 
@@ -45,7 +49,7 @@ app.get('/login', (req, res) => {
   if (req.session.islogined) {
     res.send('<script>alert("you already logined!");window.history.back();</script>');
   } else {
-    res.sendFile(__dirname + '/templates/login.html');
+    res.render('login');
   }
 })
 
@@ -73,27 +77,27 @@ app.post('/login', (req, res) => {
 
 app.get('/write', (req, res) => {
   console.log('GET on write');
-  res.sendFile(__dirname + '/templates/write.html');
+  res.render('write')
 })
 
 app.post('/write', (req, res) => {
   console.log('POST on write');
-  res.send('a');
+  res.redirect('/')
 })
 
 app.get('/post', (req, res) => {
   console.log('GET on post');
-  res.send('a');
+  res.render('page')
 })
 
 app.get('/register', (req, res) => {
   console.log('GET on register');
-  res.send('a');
+  res.render('register')
 })
 
 app.post('/register', (req, res) => {
   console.log('POST on register');
-  res.send('a');
+  res.redirect('/')
 })
 
 app.get('/logout', (req, res) => {

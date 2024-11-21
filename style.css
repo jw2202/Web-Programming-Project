@@ -36,6 +36,13 @@ footer p {
     font-size: 0.9em;
 }
 
+header .header-name {
+    display: flex;
+    justify-content: left;
+    float: left;
+    overflow: hidden;
+}
+
 /* 헤더 액션(로그인, 홈, 회원가입 버튼 등) */
 header .header-actions {
     display: flex;
