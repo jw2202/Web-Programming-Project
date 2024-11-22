@@ -8,13 +8,15 @@
 </head>
 <body style="background-color: white;">
     <header>
+        <%- logined_text %>
         <!-- 로고 및 제목 -->
         <img src="../dc.png" alt="DC Logo" width="300" height="150">
         <h1>DCOUTSIDE</h1>
         <!-- 로그인, 회원가입 및 글 작성 페이지 링크 -->
         <section class="header-actions">
-            <a href="/login" class="back-button">로그인</a>
-            <a href="/register" class="back-button">회원가입</a>
+            <!-- <a href="/login" class="back-button">로그인</a>
+            <a href="/register" class="back-button">회원가입</a> -->
+            <%- actions %>
         </section>
     </header>
 
@@ -33,18 +35,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% for( let i = 0; i < posts.length; i++ ) { %>
                     <tr>
-                        <td>1</td>
-                        <td><a href="/post?id=1">첫 번째 게시글</a></td>
-                        <td>관리자</td>
-                        <td>2024-11-18</td>
+                        <td><%= posts[i].id %></td>
+                        <td><a href="/post?id=<%- posts[i].id %>"><%= posts[i].title %></a></td>
+                        <td><%= posts[i].author %></td>
+                        <td><%= posts[i].time.getFullYear() %>-<%= posts[i].time.getMonth() + 1 %>-<%= posts[i].time.getDate() %> <%= posts[i].time.toTimeString().slice(0, 8) %></td>
                         <td>
-                            <form action="/delete" method="post">
-                                <input type="hidden" name="post_id" value="1">
+                            <form action="/post?id=<%- posts[i].id %>", method="delete">
                                 <button type="submit">삭제</button>
                             </form>
                         </td>
                     </tr>
+                    <% } %>
                 </tbody>
             </table>
         </section>

@@ -1,3 +1,4 @@
+const e = require("express");
 const express = require("express");
 const session = require("express-session")
 const mysql = require("mysql2");
@@ -27,21 +28,30 @@ app.set('views', __dirname + '/views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname))
 app.use(session({
-  secret:"Th1s_i5-My_5ecRet_-",
-  resave:false,
-  saveUninitialized:true,
-  store: sessionstore
+  secret : "Th1s_i5-My_5ecRet_-",
+  resave : false,
+  saveUninitialized : true,
+  store : sessionstore
 }))
 
 app.get('/', (req, res) => {
   console.log(req.session);
-  if (req.session.islogined) {
-    // res.sendFile(__dirname + '/templates/logined.html'); 
-    res.render('logined', { name : req.session.name });
-  } else {
-    // res.sendFile(__dirname + '/templates/index.html');
-    res.render('index');
-  }
+  // if (req.session.islogined) {
+  //   // res.sendFile(__dirname + '/templates/logined.html'); 
+  //   res.render('logined', { name : req.session.name });
+  // } else {
+  //   // res.sendFile(__dirname + '/templates/index.html');
+  //   res.render('index');
+  // }
+  db.query('SELECT * FROM posts;', (err, results) => {
+    if (err) throw err;
+    console.log(results[0].time.toTimeString())
+    res.render('index', {
+      logined_text : req.session.islogined ? `<strong class="header-name">logined as: ${req.session.name}</strong>` : '', 
+      actions : req.session.islogined ? '<a href="/logout" class="back-button">로그아웃</a>\n<a href="/write" class="back-button">글 작성</a>' : '<a href="/login" class="back-button">로그인</a>\n<a href="/register" class="back-button">회원가입</a>',
+      posts : results
+    })
+  })
 })
 
 app.get('/login', (req, res) => {
@@ -76,8 +86,12 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/write', (req, res) => {
-  console.log('GET on write');
-  res.render('write', { name: req.session.name });
+  if (req.session.islogined) {
+    res.render('write', { name: req.session.name });
+  } else {
+    res.send('<script>alert("login first!");location.href = "/login";</script>')
+  }
+  
 })
 
 app.post('/write', (req, res) => {
@@ -88,6 +102,11 @@ app.post('/write', (req, res) => {
 app.get('/post', (req, res) => {
   console.log('GET on post');
   res.render('page')
+})
+
+app.delete('/post', (req, res) => {
+  console.log('DELETE on post');
+  res.redirect('/');
 })
 
 app.get('/register', (req, res) => {
@@ -103,6 +122,11 @@ app.post('/register', (req, res) => {
     res.send('<script>alert("you already logined!");window.history.back();</script>');
   } else {
     const data = req.body;
+    if (req.body.name.length > 20) {
+      res.send('<script>alert("name must be shorter than 20 bytes!");window.history.back();</script>')
+    } else if (req.body.password.length > 20) {
+      res.send('<script>alert("password must be shorter than 20 bytes!");window.history.back();</script>')
+    }
     db.query('SELECT id, name FROM users WHERE name=? AND password=?;', [data.name, data.password], (err, result) => {
       if (err) throw err;
       if (result[0] !== undefined) {
