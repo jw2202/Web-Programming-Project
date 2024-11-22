@@ -258,3 +258,13 @@ form button {
 form button:hover {
     background-color: #555;
 }
+
+/* 삭제 버튼 중앙 정렬 */
+td form {
+    text-align: center;
+}
+
+td form button {
+    margin: auto;
+    display: block;
+}
