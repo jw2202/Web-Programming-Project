@@ -34,28 +34,23 @@ app.use(session({
   store : sessionstore
 }))
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} ${JSON.stringify(req.session)}`);
+  next();
+})
+
 app.get('/', (req, res) => {
-  console.log(req.session);
-  // if (req.session.islogined) {
-  //   // res.sendFile(__dirname + '/templates/logined.html'); 
-  //   res.render('logined', { name : req.session.name });
-  // } else {
-  //   // res.sendFile(__dirname + '/templates/index.html');
-  //   res.render('index');
-  // }
   db.query('SELECT * FROM posts;', (err, results) => {
     if (err) throw err;
-    console.log(results[0].time.toTimeString())
     res.render('index', {
       logined_text : req.session.islogined ? `<strong class="header-name">logined as: ${req.session.name}</strong>` : '', 
       actions : req.session.islogined ? '<a href="/logout" class="back-button">로그아웃</a>\n<a href="/write" class="back-button">글 작성</a>' : '<a href="/login" class="back-button">로그인</a>\n<a href="/register" class="back-button">회원가입</a>',
-      posts : results
+      posts : results.reverse()
     })
   })
 })
 
 app.get('/login', (req, res) => {
-  console.log('GET on login');
   if (req.session.islogined) {
     res.send('<script>alert("you already logined!");window.history.back();</script>');
   } else {
@@ -64,7 +59,6 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  console.log(req.body);
   if (req.session.islogined) {
     res.send('<script>alert("you already logined!");window.history.back();</script>');
   } else {
@@ -72,12 +66,12 @@ app.post('/login', (req, res) => {
     db.query('SELECT id, name FROM users WHERE name=? AND password=?;', [data.name, data.password], (err, result) => {
       if (err) throw err;
       if (result[0] !== undefined) {
-        req.session.id = result[0].id;
+        req.session._id = result[0].id;
         req.session.name = result[0].name;
         req.session.islogined = true;
         req.session.save(() => {
           res.redirect('/');
-        });
+        })
       } else { 
         res.send('<script>alert("user not found!");window.history.back();</script>');
       }
@@ -89,24 +83,39 @@ app.get('/write', (req, res) => {
   if (req.session.islogined) {
     res.render('write', { name: req.session.name });
   } else {
-    res.send('<script>alert("login first!");location.href = "/login";</script>')
+    res.send('<script>alert("login first!");location.href = "/login";</script>');
   }
-  
 })
 
 app.post('/write', (req, res) => {
-  console.log('POST on write');
-  res.redirect('/')
+  if (req.session.islogined) {
+    const data = req.body;
+    db.query("INSERT INTO posts(author, time, title, content) VALUES (?, now(), ?, ?);", [req.session.name, data.title, data.content], (err, result) => {
+      if (err) throw err;
+      res.redirect('/');
+    })
+  } else {
+    res.send('<script>alert("login first!");location.href = "/login";</script>');
+  }
 })
 
 app.get('/post', (req, res) => {
-  console.log('GET on post');
-  res.render('page')
+  res.render('page');
 })
 
 app.delete('/post', (req, res) => {
-  console.log('DELETE on post');
-  res.redirect('/');
+  if (req.session.islogined) {
+    db.query("SELECT author FROM posts WHERE id=?", [req.query.id], (err, result) => {
+      if (err) throw err;
+      res.send('<script>alert("this post is not yours!");window.history.back();');
+    })
+    db.query("DELETE FROM posts WHERE id=?", [req.query.id], (err, result) => {
+      if (err) throw err;
+      res.redirect('/');
+    })
+  } else {
+    res.send('<script>alert("login first!");location.href = "/login";</script>');
+  }
 })
 
 app.get('/register', (req, res) => {
@@ -123,9 +132,9 @@ app.post('/register', (req, res) => {
   } else {
     const data = req.body;
     if (req.body.name.length > 20) {
-      res.send('<script>alert("name must be shorter than 20 bytes!");window.history.back();</script>')
+      res.send('<script>alert("name must be shorter than 20 bytes!");window.history.back();</script>');
     } else if (req.body.password.length > 20) {
-      res.send('<script>alert("password must be shorter than 20 bytes!");window.history.back();</script>')
+      res.send('<script>alert("password must be shorter than 20 bytes!");window.history.back();</script>');
     }
     db.query('SELECT id, name FROM users WHERE name=? AND password=?;', [data.name, data.password], (err, result) => {
       if (err) throw err;
@@ -142,7 +151,6 @@ app.post('/register', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
-  console.log('GET on logout');
   req.session.destroy((err) => {
     if (err) throw err;
     res.redirect('/');

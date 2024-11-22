@@ -42,7 +42,8 @@
                         <td><%= posts[i].author %></td>
                         <td><%= posts[i].time.getFullYear() %>-<%= posts[i].time.getMonth() + 1 %>-<%= posts[i].time.getDate() %> <%= posts[i].time.toTimeString().slice(0, 8) %></td>
                         <td>
-                            <form action="/post?id=<%- posts[i].id %>", method="delete">
+                            <form action="/post?id=<%- posts[i].id %>" method="post">
+                                <input type="hidden" name="_method" value="DELETE"/>
                                 <button type="submit">삭제</button>
                             </form>
                         </td>
