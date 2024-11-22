@@ -13,6 +13,7 @@ header, footer {
     padding: 20px;
     background-color: #333;
     color: #fff;
+    align-items: center;
 }
 
 h1 {
@@ -40,7 +41,8 @@ header .header-name {
     display: flex;
     justify-content: left;
     float: left;
-    overflow: hidden;
+    position: absolute;
+    /* overflow: hidden; */
 }
 
 /* 헤더 액션(로그인, 홈, 회원가입 버튼 등) */

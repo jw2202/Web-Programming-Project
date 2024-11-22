@@ -77,7 +77,7 @@ app.post('/login', (req, res) => {
 
 app.get('/write', (req, res) => {
   console.log('GET on write');
-  res.render('write')
+  res.render('write', { name: req.session.name });
 })
 
 app.post('/write', (req, res) => {
@@ -91,13 +91,30 @@ app.get('/post', (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-  console.log('GET on register');
-  res.render('register')
+  if (req.session.islogined) {
+    res.send('<script>alert("you already logined!");window.history.back();</script>');
+  } else {
+    res.render('register');
+  }
 })
 
 app.post('/register', (req, res) => {
-  console.log('POST on register');
-  res.redirect('/')
+  if (req.session.islogined) {
+    res.send('<script>alert("you already logined!");window.history.back();</script>');
+  } else {
+    const data = req.body;
+    db.query('SELECT id, name FROM users WHERE name=? AND password=?;', [data.name, data.password], (err, result) => {
+      if (err) throw err;
+      if (result[0] !== undefined) {
+        res.send('<script>alert("user already exists!");window.history.back();</script>');
+      } else { 
+        db.query("INSERT INTO users(name, password) VALUES (?, ?);", [data.name, data.password], (err, result) => {
+          if (err) throw err;
+          res.send('<script>alert("register successed!");location.href = "/login";</script>');
+        })
+      }
+    })
+  }
 })
 
 app.get('/logout', (req, res) => {
