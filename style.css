@@ -42,7 +42,6 @@ header .header-name {
     justify-content: left;
     float: left;
     position: absolute;
-    /* overflow: hidden; */
 }
 
 /* 헤더 액션(로그인, 홈, 회원가입 버튼 등) */
@@ -68,10 +67,11 @@ header .header-actions a:hover {
     color: #fff;
 }
 
-/* 로그인 폼 스타일 */
-.login-form {
-    width: 40%; /* 폼의 너비를 40%로 설정 */
-    margin: 40px auto;
+/* 로그인 및 회원가입 폼 공통 스타일 */
+.login-form, .register-form {
+    width: 100%; /* 폼의 너비를 조정 (기존 40%) */
+    max-width: 500px; /* 최대 너비 제한 */
+    margin: 40px auto; /* 중앙 정렬 */
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -79,62 +79,21 @@ header .header-actions a:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.login-form label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-    font-size: 1rem;
-    color: #333;
-}
-
-.login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.login-form button:hover {
-    background-color: #555;
-}
-
-/* 회원가입 폼 */
-.register-form {
-    width: 40%; /* 폼의 너비를 40%로 설정 */
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
+.login-form label,
 .register-form label {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
 }
 
+.login-form input[type="text"],
+.login-form input[type="password"],
 .register-form input[type="text"],
 .register-form input[type="password"],
 .register-form input[type="email"] {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px 0; /* 필드 사이 간격 */
     border: 1px solid #ddd;
     border-radius: 5px;
     font-family: Arial, sans-serif;
@@ -142,6 +101,7 @@ header .header-actions a:hover {
     color: #333;
 }
 
+.login-form button,
 .register-form button {
     width: 100%;
     padding: 10px;
@@ -153,6 +113,7 @@ header .header-actions a:hover {
     font-size: 1rem;
 }
 
+.login-form button:hover,
 .register-form button:hover {
     background-color: #555;
 }
