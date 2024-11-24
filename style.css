@@ -69,9 +69,9 @@ header .header-actions a:hover {
 
 /* 로그인 및 회원가입 폼 공통 스타일 */
 .login-form, .register-form {
-    width: 100%; /* 폼의 너비를 조정 (기존 40%) */
-    max-width: 500px; /* 최대 너비 제한 */
-    margin: 40px auto; /* 중앙 정렬 */
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -93,7 +93,7 @@ header .header-actions a:hover {
 .register-form input[type="email"] {
     width: 100%;
     padding: 10px;
-    margin: 10px 0; /* 필드 사이 간격 */
+    margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-family: Arial, sans-serif;
@@ -135,7 +135,7 @@ textarea {
     font-family: Arial, sans-serif;
     font-size: 1rem;
     color: #333;
-    width: 100%; /* 모든 입력 필드의 너비를 100%로 맞춰서 동일한 길이 유지 */
+    width: 100%;
 }
 
 /* 버튼 스타일 */
@@ -158,6 +158,11 @@ table a {
     color: #007BFF;
     padding: 0;
     text-decoration: underline;
+    display: inline-block;
+    max-width: 200px; /* 제목의 최대 너비를 200px로 고정 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 제목이 길 경우 '...'으로 표시 */
+    white-space: nowrap; /* 줄바꿈을 방지하고 한 줄로 유지 */
 }
 
 table a:hover {
@@ -228,12 +233,4 @@ td form {
 td form button {
     margin: auto;
     display: block;
-}
-
-/* 고정된 너비를 설정하는 스타일 */
-.title-column {
-    width: 250px; /* 원하는 너비로 조정 */
-    white-space: nowrap; /* 텍스트가 너무 길 경우 줄바꿈을 방지 */
-    overflow: hidden; /* 내용이 넘치면 숨기기 */
-    text-overflow: ellipsis; /* 넘치는 내용에 대해 '...'으로 표시 */
 }
