@@ -103,15 +103,22 @@ app.get('/post', (req, res) => {
   res.render('page');
 })
 
-app.delete('/post', (req, res) => {
+app.get('/delete', (req, res) => {
   if (req.session.islogined) {
-    db.query("SELECT author FROM posts WHERE id=?", [req.query.id], (err, result) => {
+    const id = parseInt(req.query.id);
+    db.query("SELECT author FROM posts WHERE id=?", [id], (err, result) => {
       if (err) throw err;
-      res.send('<script>alert("this post is not yours!");window.history.back();');
-    })
-    db.query("DELETE FROM posts WHERE id=?", [req.query.id], (err, result) => {
-      if (err) throw err;
-      res.redirect('/');
+      if (result == []) {
+        res.send('<script>alert("unavailable post!");window.history.back();');
+      }
+      if (result[0].author === req.session.name){
+        db.query("DELETE FROM posts WHERE id=?", [id], (err, result) => {
+          if (err) throw err;
+          res.redirect('/');
+        })
+      } else {
+        res.send('<script>alert("this post is not yours!");window.history.back();');
+      }
     })
   } else {
     res.send('<script>alert("login first!");location.href = "/login";</script>');
