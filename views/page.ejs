@@ -17,26 +17,20 @@
     </header>
 
     <main>
-        <section class="post">
-            <!-- 첫 번째 게시글 -->
-            <div class="post-detail" id="post-1">
-                <h2>첫 번째 게시글</h2>
-                <p><strong>작성자:</strong> 관리자</p>
-                <p><strong>작성일:</strong> 2024-11-18</p>
-                <div class="post-content">
-                    <p>첫 번째 게시글 내용입니다. 이 게시글은 예시로 작성되었습니다. 글 내용이 길어질 경우 자연스럽게 줄 바꿈이 됩니다.</p>
-                </div>
+        <section class="post-detail">
+            <h2><%= title %></h2>
+            <p><strong>작성자:</strong> <%= author %></p>
+            <p><strong>작성일:</strong> <%= time %></p>
+            <p><strong>글 ID:</strong> <%= postId %></p>
+            <div class="post-content">
+                <p><%= content %></p>
             </div>
 
-            <!-- 두 번째 게시글 -->
-            <div class="post-detail" id="post-2">
-                <h2>두 번째 게시글</h2>
-                <p><strong>작성자:</strong> 손님</p>
-                <p><strong>작성일:</strong> 2024-11-17</p>
-                <div class="post-content">
-                    <p>두 번째 게시글 내용입니다. 이 게시글도 예시로 작성되었으며, 실제 환경에서는 다양한 콘텐츠가 포함될 수 있습니다.</p>
-                </div>
-            </div>
+            <% if (author === name) { %> <!-- 로그인한 사용자와 글 작성자가 같으면 삭제 버튼 보이기 -->
+                <form action="/delete?id=<%= postId %>" method="get">
+                    <button type="submit" class="delete-button">글 삭제</button>
+                </form>
+            <% } %>
         </section>
     </main>
 
