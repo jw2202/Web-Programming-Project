@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - DCOUTSIDE</title>
+    <title><%= post.title %> - DCOUTSIDE</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body style="background-color: white;">
     <header>
-        <strong class="header-name">logined as: <%= name %></strong>
+        <strong class="header-name"><%= logined_text %></strong>
         <img src="../dc.png" alt="DC Logo" width="300" height="150">
         <h1>DCOUTSIDE</h1>
         <section class="header-actions">
@@ -18,19 +18,17 @@
 
     <main>
         <section class="post-detail">
-            <h2><%= title %></h2>
-            <p><strong>작성자:</strong> <%= author %></p>
-            <p><strong>작성일:</strong> <%= time %></p>
-            <p><strong>글 ID:</strong> <%= postId %></p>
+            <h2><%= post.title %></h2>
+            <p><strong>작성자:</strong> <%= post.author %></p>
+            <p><strong>작성일:</strong> <%= post.time.getFullYear() %>-<%= post.time.getMonth() + 1 %>-<%= post.time.getDate() %> <%= post.time.toTimeString().slice(0, 8) %></p>
+            <p><strong>글 ID:</strong> <%= post.id %></p>
             <div class="post-content">
-                <p><%= content %></p>
+                <p><%= post.content %></p>
             </div>
-
-            <% if (author === name) { %> <!-- 로그인한 사용자와 글 작성자가 같으면 삭제 버튼 보이기 -->
-                <form action="/delete?id=<%= postId %>" method="get">
-                    <button type="submit" class="delete-button">글 삭제</button>
-                </form>
-            <% } %>
+            <form action="/delete" method="get">
+                <input type="hidden" name="id" value="<%= post.id %>">
+                <button type="submit" class="delete-button">글 삭제</button>
+            </form>
         </section>
     </main>
 

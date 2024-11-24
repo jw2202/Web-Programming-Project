@@ -8,7 +8,7 @@
 </head>
 <body style="background-color: white;">
     <header>
-        <%- logined_text %>
+        <strong class="header-name"><%= logined_text %></strong>
         <!-- 로고 및 제목 -->
         <img src="../dc.png" alt="DC Logo" width="300" height="150">
         <h1>DCOUTSIDE</h1>
@@ -43,7 +43,7 @@
                         <td><%= posts[i].time.getFullYear() %>-<%= posts[i].time.getMonth() + 1 %>-<%= posts[i].time.getDate() %> <%= posts[i].time.toTimeString().slice(0, 8) %></td>
                         <td>
                             <form action="/delete" method="get">
-                                <input type="hidden" name="id" value="<%- posts[i].id %>">
+                                <input type="hidden" name="id" value="<%= posts[i].id %>">
                                 <button type="submit">삭제</button>
                             </form>
                         </td>

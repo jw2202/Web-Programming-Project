@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
   db.query('SELECT * FROM posts;', (err, results) => {
     if (err) throw err;
     res.render('index', {
-      logined_text : req.session.islogined ? `<strong class="header-name">logined as: ${req.session.name}</strong>` : '', 
+      logined_text : req.session.islogined ? `logined as: ${req.session.name}` : '', 
       actions : req.session.islogined ? '<a href="/logout" class="back-button">로그아웃</a>\n<a href="/write" class="back-button">글 작성</a>' : '<a href="/login" class="back-button">로그인</a>\n<a href="/register" class="back-button">회원가입</a>',
       posts : results.reverse()
     })
@@ -81,7 +81,7 @@ app.post('/login', (req, res) => {
 
 app.get('/write', (req, res) => {
   if (req.session.islogined) {
-    res.render('write', { name: req.session.name });
+    res.render('write', { logined_text: `logined as: ${req.session.name}` });
   } else {
     res.send('<script>alert("login first!");location.href = "/login";</script>');
   }
@@ -100,16 +100,25 @@ app.post('/write', (req, res) => {
 })
 
 app.get('/post', (req, res) => {
-  res.render('page');
+  const { id } = req.query;
+  db.query("SELECT id, author, time, title, content FROM posts WHERE id=?", [id], (err, result) => {
+    if (err) throw err;
+    if (result[0] === undefined) {
+      res.send('<script>alert("unavailable post!");window.history.back();</script>');
+    } else {
+      res.render('page', { logined_text: req.session.islogined ? `logined as: ${req.session.name}` : '', 
+        post: result[0] })
+    }
+  })
 })
 
 app.get('/delete', (req, res) => {
   if (req.session.islogined) {
-    const id = parseInt(req.query.id);
+    const { id } = req.query;
     db.query("SELECT author FROM posts WHERE id=?", [id], (err, result) => {
       if (err) throw err;
-      if (result == []) {
-        res.send('<script>alert("unavailable post!");window.history.back();');
+      if (result[0] === undefined) {
+        res.send('<script>alert("unavailable post!");window.history.back();</>');
       }
       if (result[0].author === req.session.name){
         db.query("DELETE FROM posts WHERE id=?", [id], (err, result) => {
@@ -117,7 +126,7 @@ app.get('/delete', (req, res) => {
           res.redirect('/');
         })
       } else {
-        res.send('<script>alert("this post is not yours!");window.history.back();');
+        res.send('<script>alert("this post is not yours!");window.history.back();</script>');
       }
     })
   } else {
@@ -138,22 +147,23 @@ app.post('/register', (req, res) => {
     res.send('<script>alert("you already logined!");window.history.back();</script>');
   } else {
     const data = req.body;
-    if (req.body.name.length > 20) {
-      res.send('<script>alert("name must be shorter than 20 bytes!");window.history.back();</script>');
-    } else if (req.body.password.length > 20) {
-      res.send('<script>alert("password must be shorter than 20 bytes!");window.history.back();</script>');
+    if (data.name.length > 20) {
+      res.send('<script>alert("id must be shorter than 21 bytes!");window.history.back();</script>');
+    } else if (data.password.length > 20) {
+      res.send('<script>alert("password must be shorter than 21 bytes!");window.history.back();</script>');
+    } else {
+      db.query('SELECT id, name FROM users WHERE name=?;', [data.name], (err, result) => {
+        if (err) throw err;
+        if (result[0] !== undefined) {
+          res.send('<script>alert("user already exists!");window.history.back();</script>');
+        } else { 
+          db.query("INSERT INTO users(name, password) VALUES (?, ?);", [data.name, data.password], (err, result) => {
+            if (err) throw err;
+            res.send('<script>alert("register successed!");location.href = "/login";</script>');
+          })
+        }
+      })
     }
-    db.query('SELECT id, name FROM users WHERE name=? AND password=?;', [data.name, data.password], (err, result) => {
-      if (err) throw err;
-      if (result[0] !== undefined) {
-        res.send('<script>alert("user already exists!");window.history.back();</script>');
-      } else { 
-        db.query("INSERT INTO users(name, password) VALUES (?, ?);", [data.name, data.password], (err, result) => {
-          if (err) throw err;
-          res.send('<script>alert("register successed!");location.href = "/login";</script>');
-        })
-      }
-    })
   }
 })
 
