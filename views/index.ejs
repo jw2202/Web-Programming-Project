@@ -14,8 +14,6 @@
         <h1>DCOUTSIDE</h1>
         <!-- 로그인, 회원가입 및 글 작성 페이지 링크 -->
         <section class="header-actions">
-            <!-- <a href="/login" class="back-button">로그인</a>
-            <a href="/register" class="back-button">회원가입</a> -->
             <%- actions %>
         </section>
     </header>
@@ -28,7 +26,7 @@
                 <thead>
                     <tr>
                         <th>번호</th>
-                        <th>제목</th>
+                        <th class="title-column">제목</th> <!-- 제목에 고정 너비 적용 -->
                         <th>작성자</th>
                         <th>작성일</th>
                         <th>관리</th>

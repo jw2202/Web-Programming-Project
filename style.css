@@ -229,3 +229,11 @@ td form button {
     margin: auto;
     display: block;
 }
+
+/* 고정된 너비를 설정하는 스타일 */
+.title-column {
+    width: 250px; /* 원하는 너비로 조정 */
+    white-space: nowrap; /* 텍스트가 너무 길 경우 줄바꿈을 방지 */
+    overflow: hidden; /* 내용이 넘치면 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 내용에 대해 '...'으로 표시 */
+}
