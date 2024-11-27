@@ -119,7 +119,7 @@ app.get('/delete', (req, res) => {
     db.query("SELECT author FROM posts WHERE id=?", [id], (err, result) => {
       if (err) throw err;
       if (result[0] === undefined) {
-        res.send('<script>alert("unavailable post!");window.history.back();</>');
+        res.send('<script>alert("unavailable post!");window.history.back();</script>');
       }
       if (result[0].author === req.session.name){
         db.query("DELETE FROM posts WHERE id=?", [id], (err, result) => {
