@@ -1,15 +1,16 @@
-const e = require("express");
 const express = require("express");
 const session = require("express-session")
 const mysql = require("mysql2");
 const MySQLStore = require("express-mysql-session")(session);
 const app = express();
 
+require('dotenv').config();
+
 const options = {
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'RootRoot123!@',
-  database: 'dcoutside',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
